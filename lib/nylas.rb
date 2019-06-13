@@ -128,12 +128,12 @@ module Nylas
 
     def url_for_authentication(redirect_uri, login_hint = '', options = {})
       params = {
-        :client_id => @app_id,
-        :trial => options.fetch(:trial, false),
+        :client_id     => @app_id,
+        :trial         => options.fetch(:trial, false),
         :response_type => 'code',
-        :scope => 'email',
-        :login_hint => login_hint,
-        :redirect_uri => redirect_uri,
+        :scope         => options.fetch(:scope, 'email'),
+        :login_hint    => login_hint,
+        :redirect_uri  => redirect_uri,
       }
 
       if options.has_key?(:state) then

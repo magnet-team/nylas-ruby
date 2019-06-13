@@ -98,6 +98,19 @@ describe 'Nylas' do
       expect(params["state"]).to eq('empire state')
     end
 
+    it 'should pass scope if defined' do
+      scopes = 'email.modify,email.send'
+
+      url = @inbox.url_for_authentication(
+        'http://redirect.uri',
+        'ben@nylas.com',
+        { :scope => 'email.modify,email.send' }
+      )
+
+      params = Rack::Utils.parse_query URI(url).query
+
+      expect(params['scope']).to eq(scopes)
+    end
   end
 
   describe "#self.interpret_response" do
@@ -149,7 +162,7 @@ describe 'Nylas' do
         allow(@result).to receive(:code).and_return(403)
         expect {
           Nylas.interpret_response(@result, '{"message": "404: Not Found", "type": "api_error" }')
-                                   
+
         }.to raise_error(Nylas::AccessDenied)
       end
     end

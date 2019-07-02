@@ -131,7 +131,7 @@ module Nylas
         :client_id     => @app_id,
         :trial         => options.fetch(:trial, false),
         :response_type => 'code',
-        :scope         => options.fetch(:scope, 'email'),
+        :scopes        => options.fetch(:scopes, 'email'),
         :login_hint    => login_hint,
         :redirect_uri  => redirect_uri,
       }
@@ -145,7 +145,7 @@ module Nylas
 
     def url_for_management
       protocol, domain = @api_server.split('//')
-      accounts_path = "#{protocol}//#{@app_secret}:@#{domain}/a/#{@app_id}/accounts"
+      "#{protocol}//#{@app_secret}:@#{domain}/a/#{@app_id}/accounts"
     end
 
     def set_access_token(token)

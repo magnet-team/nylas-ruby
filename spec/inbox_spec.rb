@@ -53,7 +53,7 @@ describe 'Nylas' do
       expect(params["client_id"]).to eq(@app_id)
       expect(params["trial"]).to eq('false')
       expect(params["response_type"]).to eq('code')
-      expect(params["scope"]).to eq('email')
+      expect(params["scopes"]).to eq('email')
       expect(params["login_hint"]).to eq('')
       expect(params["redirect_uri"]).to eq(redirect_uri)
     end
@@ -66,7 +66,7 @@ describe 'Nylas' do
       expect(params["client_id"]).to eq(@app_id)
       expect(params["trial"]).to eq('false')
       expect(params["response_type"]).to eq('code')
-      expect(params["scope"]).to eq('email')
+      expect(params["scopes"]).to eq('email')
       expect(params["login_hint"]).to eq('ben@nylas.com')
       expect(params["redirect_uri"]).to eq(redirect_uri)
     end
@@ -79,7 +79,7 @@ describe 'Nylas' do
       expect(params["client_id"]).to eq(@app_id)
       expect(params["trial"]).to eq('true')
       expect(params["response_type"]).to eq('code')
-      expect(params["scope"]).to eq('email')
+      expect(params["scopes"]).to eq('email')
       expect(params["login_hint"]).to eq('ben@nylas.com')
       expect(params["redirect_uri"]).to eq(redirect_uri)
     end
@@ -92,7 +92,7 @@ describe 'Nylas' do
       expect(params["client_id"]).to eq(@app_id)
       expect(params["trial"]).to eq('false')
       expect(params["response_type"]).to eq('code')
-      expect(params["scope"]).to eq('email')
+      expect(params["scopes"]).to eq('email')
       expect(params["login_hint"]).to eq('ben@nylas.com')
       expect(params["redirect_uri"]).to eq(redirect_uri)
       expect(params["state"]).to eq('empire state')
@@ -105,7 +105,7 @@ describe 'Nylas' do
       )
 
       params = Rack::Utils.parse_query URI(url).query
-      expect(params['scope']).to eq('email')
+      expect(params['scopes']).to eq('email')
     end
 
     it 'should pass scope if defined' do
@@ -114,11 +114,11 @@ describe 'Nylas' do
       url = @inbox.url_for_authentication(
         'http://redirect.uri',
         'ben@nylas.com',
-        { :scope => 'email.modify,email.send' }
+        { :scopes => 'email.modify,email.send' }
       )
 
       params = Rack::Utils.parse_query URI(url).query
-      expect(params['scope']).to eq(scopes)
+      expect(params['scopes']).to eq(scopes)
     end
   end
 

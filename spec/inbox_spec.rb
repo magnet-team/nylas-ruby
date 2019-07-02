@@ -98,6 +98,16 @@ describe 'Nylas' do
       expect(params["state"]).to eq('empire state')
     end
 
+    it 'should set the scope to the default if none provided' do
+      url = @inbox.url_for_authentication(
+        'http://redirect.uri',
+        'ben@nylas.com'
+      )
+
+      params = Rack::Utils.parse_query URI(url).query
+      expect(params['scope']).to eq('email')
+    end
+
     it 'should pass scope if defined' do
       scopes = 'email.modify,email.send'
 
@@ -108,7 +118,6 @@ describe 'Nylas' do
       )
 
       params = Rack::Utils.parse_query URI(url).query
-
       expect(params['scope']).to eq(scopes)
     end
   end

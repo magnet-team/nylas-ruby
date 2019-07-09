@@ -9,7 +9,7 @@ module Nylas
     parameter :billing_state
 
     def _perform_account_action!(action)
-      raise UnexpectedAccountAction.new unless action == "upgrade" || action == "downgrade"
+      raise UnexpectedAccountAction.new unless action == "upgrade" || action == "downgrade" || action == "revoke-all"
 
       collection = ManagementModelCollection.new(Account, @_api, {:account_id=>@account_id})
 
